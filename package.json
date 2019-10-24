@@ -1,0 +1,19 @@
+{
+  "name": "lab3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsethi17/ece9065-nsethi8-lab3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nsethi17/ece9065-nsethi8-lab3/issues"
+  },
+  "homepage": "https://github.com/nsethi17/ece9065-nsethi8-lab3#readme"
+}
