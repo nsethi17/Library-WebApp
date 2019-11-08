@@ -1,0 +1,28 @@
+
+  h1, h2, h3 {
+    font-family: "Trebuchet MS", "Lucida Grande", Tahoma, sans-serif;
+   }
+   body {
+    font-family: Georgia, Cambria, "Times New Roman", serif;
+    background-color:burlywood ;
+    color: black;
+   }
+
+   button{
+       margin: 1em;
+   }
+   img{
+       margin: 1em;
+       height: 200px ;
+       width:  200px;
+   }
+
+   li{
+       width:200px;
+       height: fit-content;
+       
+   }
+   #item{
+       border: hidden;
+   }
+   
