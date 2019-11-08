@@ -280,13 +280,15 @@ function libAdd(){
     let t = window.prompt("Type of item(Book/CD)?");
     let d = window.prompt("Duedate of the item?")
     let p = window.prompt("Name of image file(with extension):")
+    let q = window.prompt("Qty of the item?")
     let a = new Object();
     a.name =n;
     a.type =t;
     a.dueDate =d;
-    a.img = p; 
+    a.img = p;
+    a.qty = q; 
     //items.push(a);
-    fetchPost(a);
+    fetchPut(a);
    
    
     let g =document.getElementById("available-items");
@@ -325,22 +327,23 @@ function mgtchngDue(){
     let mbtn = document.createElement("button");
     mbtn.setAttribute("type","button");
     mbtn.setAttribute("id","Mgt_chng_Due");
-    mbtn.innerHTML = "Change Due Date";
+    mbtn.innerHTML = "Update Items";
     document.getElementById("Mgt_remove").insertAdjacentElement("afterend",mbtn);
     mbtn.addEventListener("click",changeDue);
 }
 
 //Allowing librarian to change duedate
 function changeDue(){
-    let n = window.prompt("Which item number's due date do you want to change?");
-    let u = window.prompt("Mention the new duedate:");
+    let n = window.prompt("How many items do you want to update?");
+    let u = window.prompt("Mention the field you want to update(name/type/dueDate/img/qty):");
+    let c = window.prompt("Enter the new value:")
     let g =document.getElementById("available-items");
-    items[n-1].dueDate = u;
-    console.log(items);
-     while(g.hasChildNodes()){
+   // items[n-1].dueDate = u;
+   fetchPost(n,u,c)
+    while(g.hasChildNodes()){
         g.removeChild(g.firstChild)
     }
-     DisplayItems();
+    // DisplayItems();
 }
 
 // librarian's button for logging out
@@ -362,11 +365,11 @@ function logout(){
 
 
 }
-
-function fetchPost(a){
-    //Post
+//PUT req
+function fetchPut(a){
+    
 const option = {
-    method: 'POST',
+    method: 'PUT',
     body: JSON.stringify(a),
     headers: {
         'Content-Type': 'application/json'
@@ -394,5 +397,31 @@ fetch('http://localhost:1234/api',option)
     console.log(items)
     DisplayItems(items);
 }); 
+}
+
+
+function fetchPost(n,u,c){
+    //POST
+//let s = new Object();
+// s.type = u;
+// s.info = c;
+let x = u
+let y = c
+ if (n ==1){   
+const option = {
+    method: 'POST',
+    body: JSON.stringify({
+        x,
+        y 
+        
+    }),
+    headers: {
+        'Content-Type': 'application/json'
+      },
+};
+fetch('http://localhost:1234/api',option).then(res =>{
+    console.log(res);
+});
+ } 
 }
 

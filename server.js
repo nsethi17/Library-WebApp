@@ -24,7 +24,7 @@ app.get('/api',(req, res)=> {
     });
 });
 
-app.post('/api',(req,res) =>{
+app.put('/api',(req,res) =>{
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
         let db_obj = db.db("Lab3_items");
@@ -35,6 +35,22 @@ app.post('/api',(req,res) =>{
             res.json({status: "Success"});
             db.close();
         });
+    });
+});
+
+app.post('/api',(req,res) =>{
+    MongoClient.connect(url, function(err,db){
+        if (err) throw err;
+        let db_obj = db.db("Lab3_items");
+        new_item = req.body.x;
+        
+        //new_item = JSON.parse(new_item);
+        console.log(new_item);
+        // db_obj.collection("item").insertOne(new_item,function(err, result){
+        //     if (err) console.log(err);
+        //     res.json({status: "Success"});
+        //     db.close();
+        //});
     });
 });
 //process.env.PORT ||
