@@ -15,8 +15,8 @@ var url = "mongodb://localhost:27017/Lab3_items";
 app.get('/api',(req, res)=> {
     MongoClient.connect(url, function(err, db){
         if (err) console.log(err);
-        let dbo =db.db("Lab3_items");
-        dbo.collection("item").findOne({}, function(err,result){
+        let db_obj =db.db("Lab3_items");
+        db_obj.collection("item").findOne({}, function(err,result){
             if (err) console.log( err);
             res.send({'result':result});
             db.close();
@@ -25,10 +25,17 @@ app.get('/api',(req, res)=> {
 });
 
 app.post('/api',(req,res) =>{
-    console.log(req.body);  
-    res.json({status: "Success"});
-
-
+    MongoClient.connect(url, function(err,db){
+        if (err) throw err;
+        let db_obj = db.db("Lab3_items");
+        new_item = req.body;
+        console.log(new_item)
+        db_obj.collection("item").insertOne(new_item,function(err, result){
+            if (err) console.log(err);
+            res.json({status: "Success"});
+            db.close();
+        });
+    });
 });
 //process.env.PORT ||
 const port =  1234;

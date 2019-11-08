@@ -140,7 +140,6 @@ var counter = 0;// tracking items in checkout
 
 // Displaying the items
 function DisplayItems(items){
-    console.log(items.length)
 
     for(i=1; i <= items.length;i++ )(function(i){
         var item1 = document.createElement("li");
@@ -286,7 +285,7 @@ function libAdd(){
     a.type =t;
     a.dueDate =d;
     a.img = p; 
-    items.push(a);
+    //items.push(a);
     fetchPost(a);
    
    
@@ -294,7 +293,7 @@ function libAdd(){
     while(g.hasChildNodes()){
     g.removeChild(g.firstChild)
     }
-    DisplayItems();
+    //DisplayItems();
 }
 
 // librarians button to remove items
@@ -365,7 +364,6 @@ function logout(){
 }
 
 function fetchPost(a){
-    console.log(a)
     //Post
 const option = {
     method: 'POST',
@@ -374,7 +372,7 @@ const option = {
         'Content-Type': 'application/json'
       },
 };
-fetch('/api',option).then(res =>{
+fetch('http://localhost:1234/api',option).then(res =>{
     console.log(res);
 }); 
 }
