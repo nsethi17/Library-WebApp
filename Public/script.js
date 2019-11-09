@@ -335,11 +335,20 @@ function mgtchngDue(){
 //Allowing librarian to change duedate
 function changeDue(){
     let n = window.prompt("How many items do you want to update?");
-    let u = window.prompt("Mention the field you want to update(name/type/dueDate/img/qty):");
-    let c = window.prompt("Enter the new value:")
-    let g =document.getElementById("available-items");
+    if(n==1){
+        let t = window.prompt("Enter the item name:")
+        let u = window.prompt("Mention the field you want to update(dueDate/img/qty):");
+        let c = window.prompt("Enter the new value:")
+        fetchPost(n,t,u,c)
+    }
+    else{
+        let u = window.prompt("Mention the field you want to update(dueDate/img/qty):");
+        let c = window.prompt("Enter the new value:")
+        fetchPost(n,0,u,c)
+    }
    // items[n-1].dueDate = u;
-   fetchPost(n,u,c)
+   let g =document.getElementById("available-items");
+
     while(g.hasChildNodes()){
         g.removeChild(g.firstChild)
     }
@@ -400,20 +409,17 @@ fetch('http://localhost:1234/api',option)
 }
 
 
-function fetchPost(n,u,c){
+function fetchPost(n,t,u,c){
     //POST
-//let s = new Object();
-// s.type = u;
-// s.info = c;
-let x = u
-let y = c
+
  if (n ==1){   
 const option = {
     method: 'POST',
     body: JSON.stringify({
-        x,
-        y 
-        
+        num: n,
+        name: t,
+        field : u,
+        info: c,
     }),
     headers: {
         'Content-Type': 'application/json'
@@ -422,6 +428,24 @@ const option = {
 fetch('http://localhost:1234/api',option).then(res =>{
     console.log(res);
 });
+ }
+ else{
+    const option = {
+        method: 'POST',
+        body: JSON.stringify({
+            num: n,
+            name: "0",
+            field : u,
+            info: c,
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+          },
+    };
+    fetch('http://localhost:1234/api',option).then(res =>{
+        console.log(res);
+    });
+
  } 
 }
 

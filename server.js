@@ -42,15 +42,35 @@ app.post('/api',(req,res) =>{
     MongoClient.connect(url, function(err,db){
         if (err) throw err;
         let db_obj = db.db("Lab3_items");
-        new_item = req.body.x;
-        
-        //new_item = JSON.parse(new_item);
-        console.log(new_item);
-        // db_obj.collection("item").insertOne(new_item,function(err, result){
-        //     if (err) console.log(err);
-        //     res.json({status: "Success"});
-        //     db.close();
-        //});
+        num = req.body.num;
+        nam = req.body.name;
+        fld = req.body.field;
+        inf = req.body.info;
+        console.log(nam,fld,inf);
+        if(num==1){
+            let old ={name: nam};
+            let nw = {};
+            nw[fld] = inf;
+            db_obj.collection("item").updateOne(old,{$set:nw},function(err,result){
+                if(err) throw err;
+                console.log("1 item updated")
+                res.json({status:"Success"});
+                db.close();
+            }); 
+        }
+        else{
+            let nw = {};
+            nw[fld] = inf;
+            db_obj.collection("item").updateMany({},{$set:nw},function(err,result){
+                if(err) throw err;
+                console.log("All items updated")
+                res.json({status:"Success"});
+                db.close();
+
+            });
+        }
+    
+      
     });
 });
 //process.env.PORT ||
