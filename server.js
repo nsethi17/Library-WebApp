@@ -16,7 +16,24 @@ app.get('/api',(req, res)=> {
     MongoClient.connect(url, function(err, db){
         if (err) console.log(err);
         let db_obj =db.db("Lab3_items");
-        db_obj.collection("item").findOne({}, function(err,result){
+        db_obj.collection("item").find({},{projection:{_id:0}}).toArray(function(err,result){
+            if (err) console.log( err);
+            res.send({'result':result});
+            db.close();
+        });
+    });
+});
+app.get('/api/info',(req, res)=> {
+    let urlg = require('url')
+    MongoClient.connect(url, function(err, db){
+        if (err) console.log(err);
+        let db_obj =db.db("Lab3_items");
+        //new_item = req.body;
+        let url_parts = urlg.parse(req.url, true)
+         let x = url_parts.query.name;
+
+        console.log(x)
+        db_obj.collection("item").find({name:x},{projection:{_id:0,img:0}}).toArray(function(err,result){
             if (err) console.log( err);
             res.send({'result':result});
             db.close();

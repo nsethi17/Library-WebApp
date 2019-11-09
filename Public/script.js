@@ -23,6 +23,7 @@ window.onload = function(){
                mgtAdd();
                mgtRemove();
                mgtchngDue();
+               mgtInfo();
                mgtout();
 
 
@@ -67,8 +68,8 @@ function load_pg(){
 
     cart(); // adding checkout button
     lang_french(); // adding french button to change language 
-    fetchGet()
     //DisplayItems()
+    fetchGet();
 } 
 
 
@@ -139,8 +140,13 @@ var counter = 0;// tracking items in checkout
 //             {name: "Dumbo", type:"CD", dueDate:"10",img:'img10.jpg'}]
 
 // Displaying the items
-function DisplayItems(items){
-
+function DisplayItems(it){
+    let items = []
+    items =it
+    let g =document.getElementById("available-items");
+    while(g.hasChildNodes()){
+    g.removeChild(g.firstChild)
+    }
     for(i=1; i <= items.length;i++ )(function(i){
         var item1 = document.createElement("li");
         var img1 = document.createElement("img");
@@ -352,14 +358,23 @@ function changeDue(){
     }
     // DisplayItems();
 }
-
+function mgtInfo(){
+    
+    let mbtn = document.createElement("button");
+    mbtn.setAttribute("type","button");
+    mbtn.setAttribute("id","Mgt_info");
+    mbtn.innerHTML = "Get Info";
+    document.getElementById("Mgt_chng_Due").insertAdjacentElement("afterend",mbtn);
+    mbtn.addEventListener("click",getInfo); 
+    
+}
 // librarian's button for logging out
 function mgtout(){
     let mbtn = document.createElement("button");
     mbtn.setAttribute("type","button");
     mbtn.setAttribute("id","Mgt_logout");
     mbtn.innerHTML = "Logout";
-    document.getElementById("Mgt_chng_Due").insertAdjacentElement("afterend",mbtn);
+    document.getElementById("Mgt_info").insertAdjacentElement("afterend",mbtn);
     mbtn.addEventListener("click",logout);
 }
 
@@ -384,6 +399,8 @@ const option = {
 };
 fetch('http://localhost:1234/api',option).then(res =>{
     console.log(res);
+setInterval(fetchGet,1000)
+
 }); 
 }
 
@@ -399,12 +416,38 @@ const option = {
 fetch('http://localhost:1234/api',option)
 .then(response =>{return response.json();})
 .then(res =>{
-    let items = []
-    items.push(res.result);
-    console.log(items)
-    DisplayItems(items);
+    let it = [];
+    it=res.result;
+    console.log(it)
+    DisplayItems(it);
 }); 
 }
+function getInfo(){
+    let t = window.prompt("Enter the item name:")
+    //GET info for 1 item
+    //const { URL, URLSearchParams } = require('url');    
+const option = {
+    method: 'GET',
+
+    headers: {
+        'Content-Type': 'application/json'
+      },
+};
+let url = 'http://localhost:1234/api/info?name='
+param = {name: t};
+// url.search = new URLSearchParams(param).toString();
+url = url + t
+console.log(url)
+fetch(url,option)
+.then(response =>{return response.json();})
+.then(res =>{
+    let n = []
+    n.push(res.result);
+    console.log(n);
+    window.alert(JSON.stringify(n,null,4))
+}); 
+}
+
 
 
 function fetchPost(n,t,u,c){
@@ -425,6 +468,9 @@ const option = {
 };
 fetch('http://localhost:1234/api',option).then(res =>{
     console.log(res);
+    setInterval(fetchGet,1000)
+    window.alert("1 item updated")
+
 });
  }
  else{
@@ -442,6 +488,8 @@ fetch('http://localhost:1234/api',option).then(res =>{
     };
     fetch('http://localhost:1234/api',option).then(res =>{
         console.log(res);
+        setInterval(fetchGet,1000)
+        window.alert("All items updated ")
     });
 
  } 
@@ -459,5 +507,7 @@ function fetchDelete(n){
     };
     fetch('http://localhost:1234/api',option).then(res =>{
         console.log(res);
+        setInterval(fetchGet,1000)
+
     }); 
     }
