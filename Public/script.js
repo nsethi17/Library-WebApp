@@ -312,15 +312,13 @@ function mgtRemove(){
 
 //Allowing libarian to remove items
 function libRemove(){
-    let n = window.prompt("Which item number do you want to remove?");
+    let n = window.prompt("Which item do you want to remove?");
     let g =document.getElementById("available-items");
-
-    items.splice(n-1,1);
-    document.getElementById("item"+n).style.display="none";
+    fetchDelete(n);
     while(g.hasChildNodes()){
         g.removeChild(g.firstChild)
     }
-     DisplayItems();
+     
 }
 // librarians button for changing due date
 function mgtchngDue(){
@@ -449,3 +447,17 @@ fetch('http://localhost:1234/api',option).then(res =>{
  } 
 }
 
+//Delete req
+function fetchDelete(n){
+    
+    const option = {
+        method: 'DELETE',
+        body: JSON.stringify({name:n}),
+        headers: {
+            'Content-Type': 'application/json'
+          },
+    };
+    fetch('http://localhost:1234/api',option).then(res =>{
+        console.log(res);
+    }); 
+    }

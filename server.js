@@ -78,3 +78,19 @@ const port =  1234;
 app.listen(port, () => {
     console.log('Server is up and running on port no.:'+ port);
 });
+
+app.delete('/api',(req,res) =>{
+    MongoClient.connect(url, function(err,db){
+        if (err) throw err;
+        let db_obj = db.db("Lab3_items");
+        rem_item = req.body.name;
+        
+        let n = {name: rem_item};
+        db_obj.collection("item").deleteOne(n,function(err, result){
+            if (err) console.log(err);
+            console.log("Deleted 1 item")
+            res.json({status: "Success"});
+            db.close();
+        });
+    });
+});
