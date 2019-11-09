@@ -397,13 +397,13 @@ const option = {
         'Content-Type': 'application/json'
       },
 };
-fetch('http://localhost:1234/api',option).then(res =>{
+fetch('http://'+host+'/api',option).then(res =>{
     console.log(res);
 setInterval(fetchGet,1000)
 
 }); 
 }
-
+var host = window.location.host
 function fetchGet(){
     
     //GET
@@ -413,7 +413,7 @@ const option = {
         'Content-Type': 'application/json'
       },
 };
-fetch('http://localhost:1234/api',option)
+fetch('http://'+host+'/api',option)
 .then(response =>{return response.json();})
 .then(res =>{
     let it = [];
@@ -433,7 +433,7 @@ const option = {
         'Content-Type': 'application/json'
       },
 };
-let url = 'http://localhost:1234/api/info?name='
+let url = 'http://'+host+'/api/info?name='
 param = {name: t};
 // url.search = new URLSearchParams(param).toString();
 url = url + t
@@ -466,7 +466,7 @@ const option = {
         'Content-Type': 'application/json'
       },
 };
-fetch('http://localhost:1234/api',option).then(res =>{
+fetch('http://'+host+'/api',option).then(res =>{
     console.log(res);
     setInterval(fetchGet,1000)
     window.alert("1 item updated")
@@ -486,7 +486,7 @@ fetch('http://localhost:1234/api',option).then(res =>{
             'Content-Type': 'application/json'
           },
     };
-    fetch('http://localhost:1234/api',option).then(res =>{
+    fetch('http://'+host+'/api',option).then(res =>{
         console.log(res);
         setInterval(fetchGet,1000)
         window.alert("All items updated ")
@@ -505,7 +505,7 @@ function fetchDelete(n){
             'Content-Type': 'application/json'
           },
     };
-    fetch('http://localhost:1234/api',option).then(res =>{
+    fetch('http://'+host+'/api',option).then(res =>{
         console.log(res);
         setInterval(fetchGet,1000)
 
