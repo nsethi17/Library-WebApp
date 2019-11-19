@@ -1,11 +1,16 @@
 // Packages required
 const express = require('express');
 const bodyParser = require('body-parser');
-
+var cors = require('cors');
+//for cross refer
 //initializing express app
 const app = express();
 app.use(express.static('Public'));
 app.use(express.json({limit:'1mb'}));
+
+//for LAB4
+app.use(cors());
+
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/Lab3_items";
 
