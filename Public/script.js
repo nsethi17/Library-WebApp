@@ -28,6 +28,7 @@ window.onload = function(){
 
 
             }
+            //Performing Sanitization of input 
             else{
             var name_x = username();
             var em = email();
