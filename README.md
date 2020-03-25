@@ -1,1 +1,2 @@
-# ece9065-nsethi8-lab3
+# Library Web Application
+A web application with REST API for CRUD operations to maintain the backend 
