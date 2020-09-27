@@ -1,2 +1,2 @@
 # Library Web Application
-A web application with REST API for CRUD operations to maintain the backend. Users can checkout books or cds. The admin(librarian) can add new books and cds which are available. There is an option to change the language of the webpage as well.
+A web application where users can checkout books or cds. The admin(librarian) can add new books and cds which are available. There is an option to change the language of the webpage as well.
